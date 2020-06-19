@@ -1,0 +1,73 @@
+<section id="login-or-register">
+  <div class="container">
+    <h1>UCI Code Bootcamp Forex </h1>
+    <div class="row" id="container-row">
+      <div class="col-md-6">
+        <div id="log">
+          <form id="login-form">
+            <h2>Login</h2>
+            <div class="form-group">
+              <input type="text" id="login-email" name="login-email" class="form-control" placeholder="Email"
+                required />
+            </div>
+            <div class="form-group">
+              <input type="password" id="login-password" name="login-password" class="form-control"
+                placeholder="Password" required />
+            </div>
+            <button class="btn btn-dark login-register-btn" id="login-button" type="submit">
+              <span>Login</span>
+            </button>
+            <p id="login-error-message" class="login-register-error-message"></p>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div id="registration">
+          <form id="registration-form">
+            <h2>Registration</h2>
+            <div class="form-group">
+              <input type="text" id="firstname" name="firstName" class="form-control" placeholder="First Name"
+                required />
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" required />
+            </div>
+
+            <div class="form-group">
+              <input type="email" id="email-input" name="email-input" class="form-control" placeholder="Email"
+                required />
+            </div>
+
+            <div class="form-group">
+              <input type="password" id="registration-password" name="registration-password" class="form-control"
+                placeholder="Password" required />
+            </div>
+
+            <div class="form-group">
+              <input type="password" id="registration-confirm-password" name="registration-confirm-password"
+                class="form-control" placeholder="Confirm Password" required />
+            </div>
+
+            <div class="input-group mb-3" style="width: 80%;margin-left: 10%;">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="baseCurrencySelect">Base Currency</label>
+              </div>
+              <select class="custom-select form-control" id="base-currency-select">
+                <option selected>Choose...</option>
+                {{#each baseCurrencies}}
+                <option value="{{this.code}}">{{this.code}} - {{this.country}} {{this.name}}
+                  &#x{{this.symbolUnicodeHex}};</option>
+                {{/each}}
+              </select>
+            </div>
+            <button type="submit" class="btn btn-dark login-register-btn" id="register-button" name="register-button">
+              Registration
+            </button>
+            <p id="registration-error-message" class="login-register-error-message"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

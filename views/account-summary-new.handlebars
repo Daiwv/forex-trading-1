@@ -1,0 +1,144 @@
+<section id="account-summary">
+  <div class="account-module">
+    <div class="row justify-content-end">
+      <div class="col-md-2">
+        <a href="#logoff-modal" role="button" class="btn btn-sm btn-link" data-toggle="modal">Exit Application</a>
+      </div>
+    </div>
+    <!--- NAVBAR --->
+    <nav class="navbar">
+      <a class="navbar-brand" href="#">
+        <img src="imgs/trade-forex.svg" width="75" height="auto" class="d-inline-block align-right" alt=""
+          loading="lazy">
+      </a>
+      <h3>{{summary.fullName}} Portfolio</h3>
+      <h3>Base Currency: {{summary.baseCurrency.country}}
+        {{summary.baseCurrency.name}} &#x{{summary.baseCurrency.symbolUnicodeHex}};</h3>
+      <img src="https://image.flaticon.com/icons/png/512/272/272075.png" width="50" height="auto"
+        class="d-inline-block align-center" alt="" loading="lazy">
+    </nav>
+
+    <div class="row acc-row">
+      <!--- NAVBAR --->
+      <div class="col">
+        <div class="account-sum">
+          <p>Available</p>
+          <h3 id="acc-val">&#x{{summary.baseCurrency.symbolUnicodeHex}};
+            {{summary.available}}</h3>
+        </div>
+      </div>
+      <div class="col">
+        <div class="account-sum">
+          <p>Account Value</p>
+          <h3 id="acc-val">&#x{{summary.baseCurrency.symbolUnicodeHex}};
+            {{summary.currentAccountValue}}</h3>
+        </div>
+      </div>
+      <div class="col">
+        <div class="account-sum">
+          <p>Initial Investment</p>
+          <h3 id="initial">&#x{{summary.baseCurrency.symbolUnicodeHex}};
+            {{summary.initialAmount}}</h3>
+        </div>
+      </div>
+    </div>
+    <!--- BUY --->
+    <div class="buy">
+      <h6>Select Currency to buy and enter the amount of Base currency to use in purchase</h6>
+      <div class="row">
+        <div class="col">
+          <div class="currency-code">
+
+            <label for="acct-summ-currency-dropdown" style="font-weight: bold;">Currency Code</label>
+            <select id="acct-summ-currency-dropdown">
+              <option selected>Choose...</option>
+              {{#each summary.rates}}
+              <option value="{{this.code}}">{{this.code}} @ {{this.rate}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="amount-buy">
+            <div>
+              <label for="acct-summ-buy-amount" style="font-weight: bold;">Amount</label>
+              <input type="number" id="acct-summ-buy-amount" />
+              <button class="btn btn-success acct-summ-buy-btn" type="button" id="acct-summ-buy-btn">
+                Buy
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--- POSITIONS --->
+    <div class="positions">
+      <div class="positions-div">
+        <div class="row justify-content-between">
+          <div class="col-4">
+            <h5>Positions:</h5>
+          </div>
+          <div class="col-4">
+            <h5 id="account-summary-message" style="font-style: italic; color: red;"></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Country</th>
+                  <th scope="col">Currency</th>
+                  <th scope="col">Symbol</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Amount</th>
+                  <th scopr="col">Rate</th>
+                  <th scope="col">Trade</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each summary.positions}}
+                <tr>
+                  <th scope="row">{{country}}</th>
+                  <td>{{name}}</td>
+                  <td>&#x{{symbolUnicodeHex}};</td>
+                  <td>{{code}}</td>
+                  <td>{{amount}}</td>
+                  <td>{{rate}}</td>
+                  <td style="text-align: center;">
+                    <!-- <button type="button" class="btn btn-primary">Sell</i></button> -->
+                    <input type="text" placeholder="Amount" id="pos-inp-{{code}}" />
+                    <button class="btn btn-primary btn-sell" data-code="{{code}}" type="button"
+                      id="button-addon2">Sell</button>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logoff Modal -->
+  <div class="modal fade" id="logoff-modal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="background-color: darkslategray;">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Confirmation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Do you really want to logoff the application?</p>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" id="logoff-modal-confirm-btn" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+          <button type="button" id="logoff-modal-cancel-btn" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

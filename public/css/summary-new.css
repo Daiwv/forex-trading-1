@@ -1,0 +1,86 @@
+#account-summary {
+    height: 200vh;
+    background-color: whitesmoke;
+    background-image: url("https://wallpaperaccess.com/full/1116894.jpg");
+    padding-top: 5%;
+}
+
+.account-module {
+    background-color: rgba(255, 255, 255, 0.062);
+    display: block;
+    padding: 50px;
+    margin: auto;
+    height: auto;
+    width: 85vw;
+}
+
+.account-sum {
+    background-color: #161616;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    color: white;
+    box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.positions-div {
+    background-color: #161616;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 30px;
+    text-align: center;
+    color: white;
+    box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.buy {
+    background-color: #161616;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    color: white;
+    box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.buy h6 {
+    margin-bottom: 10px;
+}
+
+.navbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #161616;
+    color: white;
+    margin-bottom: 30px;
+    box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.table {
+    color: white;
+}
+
+.btn-sell {
+    background-color: #10af4d;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    width: 25%;
+}
+
+#acc-val {
+    color: #10af4d;
+}
+
+#initial {
+    color: #10af4d;
+}

@@ -1,0 +1,40 @@
+.main {
+    background-color:#161616;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.container {
+    height: 100vh;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.columns {
+    padding: 10px;
+}
+
+.navbar {
+    background-color:#161616;
+}
+
+.intro {
+    text-align: center;
+}
+
+.img-fluid {
+    width: 100%;
+}
+
+.icon-row {
+    width: 100%;
+    /* margin: 0 auto; */
+    /* display: inline-block; */
+    align-content: center;
+}
+
+.icon-col {
+    vertical-align: middle;
+    margin: auto;
+    text-align: center;
+}

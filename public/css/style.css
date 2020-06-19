@@ -1,0 +1,285 @@
+/*W3hubs.com - Download Free Responsive Website Layout Templates designed on HTML5 CSS3,
+Bootstrap which are 100% Mobile friendly. w3Hubs all Layouts are responsive cross 
+browser supported, best quality world class designs.*/
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,500,500i,600,700,700i,800");
+body {
+  background-image: linear-gradient(to right, #f7de1c, #64638f, #0c907d);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Raleway", sans-serif;
+}
+
+a:link {
+  text-decoration: none;
+}
+h1 {
+  text-align: center;
+  color: #fff;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+h2 {
+  font-size: 40px;
+  padding-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+form {
+  display: block;
+  text-align: center;
+  margin: 10px auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 4px;
+  background-image: linear-gradient(to right, #9fe8fa, #26baee);
+}
+
+.btn-dark {
+  width: 80%;
+  font-size: 18px;
+}
+
+.form-check {
+  text-align: center !important;
+  padding: 10px;
+}
+
+#registration .form1 {
+  width: 60%;
+  border: 2px solid black;
+  display: block;
+  text-align: center;
+  margin: 70px auto;
+  padding: 50px;
+}
+
+.form-control::placeholder {
+  padding-left: 10px;
+}
+
+.form-control {
+  outline: none;
+  border: none;
+  margin: 0 auto;
+  width: 80%;
+  border-bottom: 1px solid #fff;
+  border-radius: 40px;
+  height: 40px;
+}
+
+.rounded-corner{
+  width: 80%;
+
+}
+.form-control:focus {
+  border: none;
+
+  box-shadow: none;
+  border: 1px solid #000;
+}
+
+.form-control:hover {
+  text-decoration: none;
+  border: none;
+
+  box-shadow: none;
+  border: 1px solid #000;
+}
+
+.form-check {
+  text-align: left;
+  font-size: 20px;
+}
+
+/* .login-register-btn {
+  margin-top: 15px;
+  border-radius: 15px;
+  background-color: saddlebrown;
+} */
+@media (max-width: 768px) {
+  #registration {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+}
+
+.login-register-btn {
+  margin-top: 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  position: relative;
+  padding: 2.5rem 7.5rem;
+  border-radius: 3.75rem;
+  line-height: 0.1rem;
+  font-size: 2rem;
+  font-weight: 600;
+
+  border: 1px solid #012880;
+  background-image: linear-gradient(-180deg, #ff89d6 0%, #c01f9e 100%);
+  box-shadow: 0 1rem 1.25rem 0 rgba(22, 75, 195, 0.5),
+    0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+    0 0.75rem 0.5rem rgba(255, 255, 255, 0.4) inset,
+    0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+}
+
+login-register-btn span {
+  color: transparent;
+  background-image: linear-gradient(0deg, #ee82da 0%, #fefafd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 2px 2px hsla(290, 100%, 20%, 1));
+}
+
+butlogin-register-btnton::before {
+  content: "";
+  display: block;
+  height: 0.25rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 7.5rem);
+  background: #fff;
+  border-radius: 100%;
+
+  opacity: 0.7;
+  background-image: linear-gradient(
+    -270deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 20%,
+    #ffffff 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+login-register-btn::after {
+  content: "";
+  display: block;
+  height: 0.25rem;
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 7.5rem);
+  background: #fff;
+  border-radius: 100%;
+
+  filter: blur(1px);
+  opacity: 0.05;
+  background-image: linear-gradient(
+    -270deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 20%,
+    #ffffff 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.login-register-error-message {
+  color: red;
+  font-style: italic;
+}
+
+@media (max-width: 424px) {
+  h1 {
+    font-size: 30px;
+  }
+}
+.quiz-timer-style {
+  font-family: "Quantico", sans-serif;
+  font-size: 28px;
+}
+
+/* This is for the question button with embedded <div> and <p>. Only the
+ button will recieve the click event
+*/
+button > * {
+  pointer-events: none;
+}
+
+/*
+Styling for the question label 
+*/
+.question-label {
+  color: aliceblue;
+  background-color: darkorange;
+  font-weight: bold;
+  display: inline-block;
+}
+.button-start-quiz {
+  cursor: pointer;
+  margin-left: 5px;
+  margin-bottom: 15px;
+  text-shadow: 0 -2px 0 #4a8a65, 0 1px 1px #c2dece;
+  box-sizing: border-box;
+  font-size: 1.5em;
+  font-family: Helvetica, Arial, Sans-Serif;
+  text-decoration: none;
+  font-weight: bold;
+  color: #5ea97d;
+  height: 35px;
+  line-height: 35px;
+  padding: 0 17.5px;
+  display: inline-block;
+  width: auto;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#9ceabd),
+    color-stop(26%, #9ddab6),
+    to(#7fbb98)
+  );
+  background: linear-gradient(to bottom, #9ceabd 0%, #9ddab6 26%, #7fbb98 100%);
+  border-radius: 5px;
+  border-top: 1px solid #c8e2d3;
+  border-bottom: 1px solid #c2dece;
+  top: 0;
+  -webkit-transition: all 0.06s ease-out;
+  transition: all 0.06s ease-out;
+  position: relative;
+}
+.button-start-quiz:visited {
+  color: #5ea97d;
+}
+
+.button-start-quiz:hover {
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#baf1d1),
+    color-stop(26%, #b7e4ca),
+    to(#96c7ab)
+  );
+  background: linear-gradient(to bottom, #baf1d1 0%, #b7e4ca 26%, #96c7ab 100%);
+}
+
+.button-start-quiz:active {
+  top: 6px;
+  text-shadow: 0 -2px 0 #7fbb98, 0 1px 1px #c2dece, 0 0 4px white;
+  color: white;
+}
+.button-start-quiz:active:before {
+  top: 0;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.7), 0 3px 9px rgba(0, 0, 0, 0.2);
+}
+
+.button-start-quiz:before {
+  display: inline-block;
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  top: 6px;
+  border-radius: 5px;
+  height: 35px;
+  background: linear-gradient(to top, #1e5033 0%, #378357 6px);
+  -webkit-transition: all 0.078s ease-out;
+  transition: all 0.078s ease-out;
+  box-shadow: 0 1px 0 2px rgba(0, 0, 0, 0.3), 0 5px 2.4px rgba(0, 0, 0, 0.5),
+    0 10.8px 9px rgba(0, 0, 0, 0.2);
+}

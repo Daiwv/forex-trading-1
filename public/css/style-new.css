@@ -1,0 +1,97 @@
+.login-bg {
+  height: 100vh;
+  background-image: url("https://wallpaperaccess.com/full/1116894.jpg");
+  padding-top: 5%;
+}
+
+.form-control:hover {
+  text-decoration: none;
+  border: none;
+
+  box-shadow: none;
+  border: 1px solid #10af4d;
+}
+
+.loginform {
+  background-color: #161616;
+  display: block;
+  padding-top: 75px;
+  padding-bottom: 50px;
+  padding-left: 10%;
+  padding-right: 10%;
+  height: 75vh;
+  opacity: 95%;
+  text-align: center;
+}
+
+.loginform h2 {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.registerform {
+  background-color: whitesmoke;
+  display: block;
+  height: 75vh;
+  padding-top: 40px;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+.registerform h2 {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.registerform input {
+  background-color: transparent;
+  border-color: transparent;
+  border-bottom: 1px solid black;
+}
+
+.logo-login {
+  margin-bottom: 25px;
+}
+
+#container-row {
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 15px;
+}
+
+#login-button {
+  border-radius: 5px;
+  width: 100%;
+  background: #10af4d;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#login-button:hover {
+  background-color: #2a2666;
+}
+
+.login-register-btn {
+  background-color: black;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.login-register-btn:hover {
+  background-color: #10af4d;
+  border-color: transparent;
+}
+
+.login-register-error-message {
+  background-color: bisque;
+  margin-top: 10px;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 3px;
+  font-style: italic;
+  color: red;
+  font-weight: bold;
+}
