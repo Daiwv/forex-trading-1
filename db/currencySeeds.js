@@ -1,4 +1,4 @@
-const currencySeed = [
+module.exports = [
   { country: "Albania", name: "Lek", code: "ALL", symbolUnicodeHex: "4c,65,6b", isBaseCurrency: false },
   { country: "Afghanistan", name: "Afghani", code: "AFN", symbolUnicodeHex: "60b", isBaseCurrency: false },
   { country: "Argentina", name: "Peso", code: "ARS", symbolUnicodeHex: "24", isBaseCurrency: false },
@@ -108,4 +108,4 @@ const currencySeed = [
   { country: "Yemen", name: "Rial", code: "YER", symbolUnicodeHex: "fdfc", isBaseCurrency: false },
   { country: "Zimbabwe", name: "Dollar", code: "ZWD", symbolUnicodeHex: "5a,24", isBaseCurrency: false },
 ];
-module.exports = { currencySeed };
+//module.exports = { currencySeed };

@@ -64,10 +64,70 @@ function runServer() {
   }
 }
 
-function updateCurrencyTable(db) {
-  let seeds = require("./db/currencies");
-  // TODO : Insert/Update the Currencies table with information in the currencies.js file
-  // console.log(seeds.currencySeed.length);
+async function updateCurrencyTable(db) {
+  let currencySeeds = require("./db/currencySeeds");
+  // seed/update the currency table if it does not exist
+  if (currencySeeds != null) {
+    console.log(`\n\nSeeding Currency Table...(${currencySeeds.length})`);
+
+    for (let index = 0; index < currencySeeds.length; index++) {
+      let seedRow = currencySeeds[index];
+      console.log(seedRow);
+      // get a subset of the object excluding the primary key (code)
+      let subset = (({ country, name, symbolUnicodeHex, isBaseCurrency }) => ({
+        country,
+        name,
+        symbolUnicodeHex,
+        isBaseCurrency,
+      }))(seedRow);
+      let code = seedRow["code"];
+      let [curr, created] = await db.Currency.findOrCreate({ where: { code: code }, defaults: subset });
+      console.log(curr.get({ plain: true }));
+      console.log(created);
+    }
+  }
+  // seed/update account table
+  let accountSeeds = require("./db/accountSeeds");
+  if (accountSeeds != null) {
+    console.log(`\n\nSeeding Account Table...(${accountSeeds.length})`);
+    for (let index = 0; index < accountSeeds.length; index++) {
+      let seedRow = accountSeeds[index];
+      console.log(seedRow);
+      // get subset of the object excluding a unique column (uuid)
+      let subset = (({ email, firstName, lastName, password, baseCurrencyCode, initialAmount }) => ({
+        email,
+        firstName,
+        lastName,
+        password,
+        baseCurrencyCode,
+        initialAmount,
+      }))(seedRow);
+      let uuid = seedRow["uuid"];
+      let [curr, created] = await db.Account.findOrCreate({ where: { uuid: uuid }, defaults: subset });
+      console.log(curr.get({ plain: true }));
+      console.log(created);
+    }
+  }
+
+  // seed/update exchangeRate table
+  let rateSeeds = require("./db/exchangeRateSeeds");
+  if (rateSeeds != null) {
+    console.log(`\n\nSeeding ExchangeRate Table...(${rateSeeds.length})`);
+    for (let index = 0; index < rateSeeds.length; index++) {
+      let seedRow = rateSeeds[index];
+      console.log(seedRow);
+      let subset = (({ baseCurrencyCode, targetCurrencyCode, rate }) => ({
+        baseCurrencyCode,
+        targetCurrencyCode,
+        rate,
+      }))(seedRow);
+      let uuid = seedRow["uuid"];
+      let [curr, created] = await db.ExchangeRate.findOrCreate({ where: { uuid: uuid }, defaults: subset });
+      console.log(curr.get({ plain: true }));
+      console.log(created);
+    }
+  }
+
   const { QueryTypes } = require("sequelize");
   const { Op } = require("sequelize");
   // Update the currencies table with process.env.BASE_CURRENCIES.
@@ -76,36 +136,36 @@ function updateCurrencyTable(db) {
     let currencies = baseCurrency.split(",");
     console.log(currencies);
     // ******* async anonymous function (self executing) *****************
-    (async () => {
-      //first set the isBaseCurrency column of all rows to false
+    // (async () => {
+    //first set the isBaseCurrency column of all rows to false
+    let [numberOfAffectedRows, affectedRows] = await db.Currency.update(
+      {
+        isBaseCurrency: false,
+      },
+      {
+        where: {
+          isBaseCurrency: { [Op.is]: true },
+        },
+        returning: true,
+        plain: true,
+      }
+    );
+    // console.log(numberOfAffectedRows);
+    console.log(affectedRows);
+    for (let index = 0; index < currencies.length; index++) {
       let [numberOfAffectedRows, affectedRows] = await db.Currency.update(
         {
-          isBaseCurrency: false,
+          isBaseCurrency: true,
         },
         {
-          where: {
-            isBaseCurrency: { [Op.is]: true },
-          },
+          where: { code: currencies[index] },
           returning: true,
           plain: true,
         }
       );
-      // console.log(numberOfAffectedRows);
-      console.log(affectedRows); // this will be an array of the three affected pugs
-      for (let index = 0; index < currencies.length; index++) {
-        let [numberOfAffectedRows, affectedRows] = await db.Currency.update(
-          {
-            isBaseCurrency: true,
-          },
-          {
-            where: { code: currencies[index] },
-            returning: true,
-            plain: true,
-          }
-        );
-      }
-      updateExchangeRateTable(db);
-    })();
+    }
+    updateExchangeRateTable(db);
+    // })();
     // ******* ^^^^^^^^^^^^^^ **************
   }
 }
