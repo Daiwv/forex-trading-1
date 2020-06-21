@@ -23,4 +23,19 @@ function generateUUID(numberOfBytes) {
     );
   else return uuid;
 }
-module.exports = { validateEmail, generateUUID };
+
+/**
+ *
+ * Returns time in YYY-MM-DD format from UTC time in milliseconds
+ */
+function getParsedTime(milliTime) {
+  let dateObj = new Date();
+  dateObj.setTime(milliTime);
+  let year = dateObj.getUTCFullYear();
+  let month = dateObj.getUTCMonth() + 1;
+  let day = dateObj.getUTCDate();
+
+  return `${year}-${month}-${day}`;
+}
+
+module.exports = { validateEmail, generateUUID, getParsedTime };
