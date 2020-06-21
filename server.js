@@ -164,7 +164,7 @@ async function updateCurrencyTable(db) {
         }
       );
     }
-    updateExchangeRateTable(db);
+    await updateExchangeRateTable(db);
     // })();
     // ******* ^^^^^^^^^^^^^^ **************
   }
@@ -245,9 +245,10 @@ async function updateExchangeRateTable(db) {
 db.sequelize
   .sync({})
   .then(runServer)
-  .then(function () {
-    updateCurrencyTable(db);
+  .then(async function () {
+    await updateCurrencyTable(db);
     // set interval timer to update exchange table
+    console.log("\n\n\n Setting up Interval Timer\n");
     setInterval(function () {
       updateExchangeRateTable(db);
     }, process.env.EXCHANGE_UPDATE_INTERVAL_MILLI || constants.EXCHANGE_UPDATE_INTERVAL_MILLI);

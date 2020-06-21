@@ -53,6 +53,9 @@ module.exports = function (sequelize, DataTypes) {
     Currency.hasMany(models.Transaction, { foreignKey: "fromCurrencyCode" });
     Currency.hasMany(models.Transaction, { foreignKey: "toCurrencyCode" });
 
+    Currency.hasMany(models.HistoricalRate, { foreignKey: "baseCurrencyCode" });
+    Currency.hasMany(models.HistoricalRate, { foreignKey: "targetCurrencyCode" });
+
   };
 
   return Currency;
