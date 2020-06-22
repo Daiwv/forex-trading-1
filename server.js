@@ -9,6 +9,10 @@ const Handlebars = require("handlebars");
 const axios = require("axios");
 const utilities = require("./utilities");
 const app = express();
+
+const { QueryTypes } = require("sequelize");
+const { Op } = require("sequelize");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // static directory
@@ -28,7 +32,7 @@ require("./routes/login-register-api-routes")(app);
 require("./routes/trade-api-routes")(app);
 
 let CURRENCYSCOOP_LATEST_URL = `https://currencyscoop.p.rapidapi.com/latest?base=`;
-
+const CURRENCYSCOOP_HISTORICAL_URL = ``;
 let serverHost = process.env.SERVER_HOST || "localhost";
 
 function runServer() {
@@ -128,8 +132,6 @@ async function updateCurrencyTable(db) {
     }
   }
 
-  const { QueryTypes } = require("sequelize");
-  const { Op } = require("sequelize");
   // Update the currencies table with process.env.BASE_CURRENCIES.
   let baseCurrency;
   if ((baseCurrency = process.env.BASE_CURRENCIES)) {
@@ -247,9 +249,103 @@ db.sequelize
   .then(runServer)
   .then(async function () {
     await updateCurrencyTable(db);
+    //
+    // prune and update HistoricalRate table
+    await updateHistoricalRates(db);
     // set interval timer to update exchange table
-    console.log("\n\n\n Setting up Interval Timer\n");
+    console.log("\n\n\n Setting up Exchange Rates Interval Timer\n");
     setInterval(function () {
       updateExchangeRateTable(db);
     }, process.env.EXCHANGE_UPDATE_INTERVAL_MILLI || constants.EXCHANGE_UPDATE_INTERVAL_MILLI);
+
+    // set interval for HistoricalRate table update
+    console.log("\n\n\n Setting up Historical Rates Interval Timer\n");
+    setInterval(function () {
+      updateHistoricalRates(db);
+    }, process.env.HISTORICAL_RATES_UPDATE_INTERVAL_MILLI || constants.HISTORICAL_RATES_UPDATE_INTERVAL_MILLI);
   });
+
+async function updateHistoricalRates(db) {
+  let historyDays = process.env.HISTORY_DAYS || constants.HISTORY_DAYS;
+  let todayDateObj = new Date();
+  // get today's date and remove all rows in the HistoricalRate table that are older than that
+  let startDate = todayDateObj.getTime() - historyDays * constants.ONE_DAY_MILLI;
+  let dbResult = await db.HistoricalRate.destroy({ where: { dateStamp: { [Op.lt]: startDate } } });
+  console.log("\n\nHistoricalRate Prunning results:");
+  console.log(dbResult);
+  // get list of currencies and base currencies
+  let currencyCodes = [];
+  let baseCurrencyCodes = [];
+  dbResult = await db.Currency.findAll({});
+  if (dbResult != null) {
+    for (let index = 0; index < dbResult.length; index++) {
+      let row = dbResult[index].dataValues;
+      if (row.isBaseCurrency === true) baseCurrencyCodes.push(row.code);
+      currencyCodes.push(row.code);
+    }
+
+    // create URL for getting historical currency rates. Outer loop is date and inner loop is base currency
+    let historicalParams = [];
+    let todayTime = todayDateObj.getTime();
+    let dateObject = new Date();
+    for (let i = 1; i <= historyDays; i++) {
+      dateObject.setTime(todayTime - constants.ONE_DAY_MILLI * i);
+      let date = utilities.getParsedTime(dateObject.getTime());
+      for (let j = 0; j < baseCurrencyCodes.length; j++) {
+        let baseCurrency = baseCurrencyCodes[j];
+        let symbolsArray = [];
+        for (let k = 0; k < currencyCodes.length; k++) {
+          let code = currencyCodes[k];
+          if (code !== baseCurrency) symbolsArray.push(code);
+        }
+        let symbols = symbolsArray.join(",");
+        historicalParams.push({ date: date, base: baseCurrency, symbols: symbols });
+      }
+    }
+
+    for (let i = 0; i < historicalParams.length; i++) {
+      let params = historicalParams[i];
+      let response = await axios({
+        method: "GET",
+        url: "https://currencyscoop.p.rapidapi.com/historical",
+        headers: {
+          "content-type": "application/octet-stream",
+          "x-rapidapi-host": "currencyscoop.p.rapidapi.com",
+          "x-rapidapi-key": "5112b8642cmsh66adc618f8726e4p1f8a51jsn8c2a905c7d57",
+          useQueryString: true,
+        },
+        params: params,
+      });
+      let rates = response.data.response.rates;
+      // console.log(params);
+      // console.log(rates);
+      params["rates"] = rates;
+    }
+    // now insert/update into HistoricalRate table
+    let createdCount = 0;
+    for (let i = 0; i < historicalParams.length; i++) {
+      let params = historicalParams[i];
+      let dateStamp = Number(new Date(params.date));
+      //let [curr, created] = await db.Currency.findOrCreate({ where: { code: code }, defaults: subset });
+      let base = params.base;
+      let rates = params.rates;
+      let currencies, whereClause, defaults, targetCurrencyCode, rate;
+      if (rates != null && (currencies = Object.keys(rates)) != null && currencies.length != 0) {
+        for (let j = 0; j < currencies.length; j++) {
+          targetCurrencyCode = currencies[j];
+          rate = rates[targetCurrencyCode];
+          defaults = { rate: rate };
+          whereClause = { dateStamp: dateStamp, baseCurrencyCode: base, targetCurrencyCode: targetCurrencyCode };
+          let [curr, created] = await db.HistoricalRate.findOrCreate({
+            where: whereClause,
+            defaults: defaults,
+          });
+          // console.log(curr.get({ plain: true }));
+          // console.log(created);
+          if (created) createdCount++;
+        }
+      }
+    }
+    console.log(`\n\n${createdCount} rows inserted into HistoricalRate table\n`);
+  }
+}
