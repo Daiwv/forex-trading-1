@@ -44,17 +44,17 @@ module.exports = function (sequelize, DataTypes) {
 
   Currency.associate = function (models) {
     // Associate Account with base currency. This will be a foreign key pointing to the curency table
-    Currency.hasMany(models.Account, { foreignKey: "baseCurrencyCode" });
-    Currency.hasMany(models.Position, { foreignKey: "currencyCode" });
+    Currency.hasMany(models.Account, { foreignKey: {name:"baseCurrencyCode",allowNull:false} });
+    Currency.hasMany(models.Position, { foreignKey: {name:"currencyCode",allowNull:false} });
 
-    Currency.hasMany(models.ExchangeRate, { foreignKey: "targetCurrencyCode" });
-    Currency.hasMany(models.ExchangeRate, { foreignKey: "baseCurrencyCode" });
+    Currency.hasMany(models.ExchangeRate, { foreignKey: {name:"targetCurrencyCode",allowNull:false} });
+    Currency.hasMany(models.ExchangeRate, { foreignKey: {name:"baseCurrencyCode",allowNull:false} });
 
-    Currency.hasMany(models.Transaction, { foreignKey: "fromCurrencyCode" });
-    Currency.hasMany(models.Transaction, { foreignKey: "toCurrencyCode" });
+    Currency.hasMany(models.Transaction, { foreignKey: {name:"fromCurrencyCode",allowNull:false} });
+    Currency.hasMany(models.Transaction, { foreignKey: {name:"toCurrencyCode",allowNull:false} });
 
-    Currency.hasMany(models.HistoricalRate, { foreignKey: "baseCurrencyCode" });
-    Currency.hasMany(models.HistoricalRate, { foreignKey: "targetCurrencyCode" });
+    Currency.hasMany(models.HistoricalRate, { foreignKey: {name:"baseCurrencyCode",allowNull:false} });
+    Currency.hasMany(models.HistoricalRate, { foreignKey: {name:"targetCurrencyCode",allowNull:false} });
 
   };
 
