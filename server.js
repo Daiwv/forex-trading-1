@@ -317,8 +317,8 @@ async function updateHistoricalRates(db) {
         params: params,
       });
       let rates = response.data.response.rates;
-      console.log(params);
-      console.log(rates);
+      // console.log(params);
+      // console.log(rates);
       params["rates"] = rates;
     }
     // now insert/update into HistoricalRate table
