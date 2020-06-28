@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
     //   type: DataTypes.UUID,
     //   allowNull: false,
     // },
-    // currencyUUID: { // hasMany
+    // currencyCode: { // hasMany
     //   type: DataTypes.UUID,
     //   allowNull: false,
     // },
