@@ -92,6 +92,9 @@ async function updateCurrencyTable(db) {
   }
   // seed/update account table
   let accountSeeds = require("./db/accountSeeds");
+  let hashsalt = process.env.DIGEST_SALT;
+  let isValidated = true;
+  let transactionTime = Date.now();
   if (accountSeeds != null) {
     console.log(`\n\nSeeding Account Table...(${accountSeeds.length})`);
     for (let index = 0; index < accountSeeds.length; index++) {
@@ -107,9 +110,29 @@ async function updateCurrencyTable(db) {
         initialAmount,
       }))(seedRow);
       let uuid = seedRow["uuid"];
+      let clearPassword = seedRow["password"];
+      let passwordData = utilities.saltHashPassword512(clearPassword, hashsalt);
+      subset["passwordHash"] = passwordData.passwordHash;
+      subset["isValidated"] = isValidated;
+      subset["transactionTime"] = transactionTime;
       let [curr, created] = await db.Account.findOrCreate({ where: { uuid: uuid }, defaults: subset });
       console.log(curr.get({ plain: true }));
       console.log(created);
+      // if created, update positions table to reflect the initial amount.
+      if (created) {
+        // get accountUUID
+        let position = {
+          accountUUID: uuid,
+          currencyCode: subset["baseCurrencyCode"],
+          amount: subset["initialAmount"],
+        };
+        let dbResult = await db.Position.create(position);
+        console.log("\n\nInserted row into positions Table:");
+        console.log(position);
+        let message = `Inserted Position for ${subset["baseCurrencyCode"]} in the amount of ${subset["initialAmount"]}`;
+        console.log(`\n${message}\n`);
+        console.log(`\n${dbResult}\n`);
+      }
     }
   }
 

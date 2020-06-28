@@ -47,6 +47,7 @@ module.exports = function (sequelize, DataTypes) {
       sessionUUID: {
         type: DataTypes.UUID,
       },
+      // transaction time is also used to indicate when the user registered. So this field should not be null
       transactionTime: {
         type: DataTypes.BIGINT,
       },
@@ -55,14 +56,18 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         len: [4],
       },
-      // baseCurrencyUUID: {
-      //   type: DataTypes.UUID,
-      //   references: "Currencies",
-      //   referencesKey: "uuid",
-      // },
+      passwordHash: {
+        type: DataTypes.STRING(256),
+        // allowNull: false,
+      },
       initialAmount: {
         type: DataTypes.DECIMAL(20, 10),
         allowNull: false,
+      },
+      isValidated: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
     },
     {
@@ -77,7 +82,7 @@ module.exports = function (sequelize, DataTypes) {
 
   // add hook (trigger) to update initial amount based on exchange rate
   // Account.beforeCreate(async (account,options) => {
-    
+
   // });
   return Account;
 };
