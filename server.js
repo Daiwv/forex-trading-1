@@ -2,7 +2,7 @@ var fs = require("fs");
 var path = require("path");
 const express = require("express");
 const https = require("https");
-require("dotenv").config();
+require("dotenv").config({ debug: process.env.DOTENV_DEBUG === 'true' });
 const enigma = require("./security/newencryption");
 const handlebars = require("express-handlebars");
 const Handlebars = require("handlebars");
@@ -30,6 +30,7 @@ require("./routes/account-summary-api-route")(app);
 require("./routes/index-route.js")(app);
 require("./routes/login-register-api-routes")(app);
 require("./routes/trade-api-routes")(app);
+require('./routes/email-verification-api-route')(app);
 
 let CURRENCYSCOOP_LATEST_URL = `https://currencyscoop.p.rapidapi.com/latest?base=`;
 const CURRENCYSCOOP_HISTORICAL_URL = ``;
