@@ -64,11 +64,15 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DECIMAL(20, 10),
         allowNull: false,
       },
-      isValidated: {
+      isVerified: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
+      verificationCode:{
+        type:DataTypes.STRING(256)
+        }
+      }
     },
     {
       // Options https://sequelize.org/v3/docs/models-definition/#configuration

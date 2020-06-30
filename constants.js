@@ -4,6 +4,7 @@ const EXCHANGE_UPDATE_INTERVAL_MILLI = 900000; // 15 minutes
 const HISTORY_DAYS = 7; // number of days to keep historical data
 const ONE_DAY_MILLI = 24 * 60 * 60 * 1000; // one day in milliseconds
 const HISTORICAL_RATES_UPDATE_INTERVAL_MILLI = 12 * 60 * 60 * 1000; // 12 hours
+EMAIL_PARAM_LENGTH = 64;
 module.exports = {
   INITIAL_INVESTMENT_AMOUNT_USD,
   SESSION_TIMEOUT_MILLI,
@@ -11,4 +12,5 @@ module.exports = {
   HISTORY_DAYS,
   ONE_DAY_MILLI,
   HISTORICAL_RATES_UPDATE_INTERVAL_MILLI,
+  EMAIL_PARAM_LENGTH,
 };
