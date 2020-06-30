@@ -167,7 +167,7 @@ module.exports = function (app) {
         summary["currentAccountValue"] = new Number(currentAccountValue).toFixed(2);
       }
 
-      res.render("account-summary-new", response);
+      res.render("account-summary", response);
     })();
   });
 };

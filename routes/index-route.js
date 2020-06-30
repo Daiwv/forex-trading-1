@@ -50,7 +50,7 @@ module.exports = function (app) {
         baseCurrencies: baseCurrencies,
       };
       console.log(response);
-      res.render("login-registration-new",response);
+      res.render("login-registration",response);
     })();
     // res.sendFile(path.join(__dirname, "../public/login-registration.html"));
   });
